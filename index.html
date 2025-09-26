@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denis Plainchamp - C'est un jardin extraordinaire</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background-color: #f9f7f2;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .catalogue {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0d9c8;
+        }
+        
+        /* En-tête */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="400" viewBox="0 0 1000 400"><rect width="1000" height="400" fill="%234a7c59"/><path d="M200,300 C400,150 600,250 800,200 L800,400 L200,400 Z" fill="%23629f75"/><circle cx="250" cy="100" r="40" fill="%23f8f5ec" opacity="0.8"/><circle cx="700" cy="150" r="60" fill="%23f8f5ec" opacity="0.8"/></svg>');
+            background-size: cover;
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-bottom: 5px solid #c19a6b;
+        }
+        
+        .exhibition-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .artist-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            color: #f8f5ec;
+        }
+        
+        .exhibition-details {
+            font-style: italic;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            color: #f8f5ec;
+        }
+        
+        /* Introduction */
+        .introduction {
+            padding: 50px 40px;
+            background: #f8f5ec;
+            border-bottom: 1px solid #e0d9c8;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #4a7c59;
+            border-bottom: 2px solid #c19a6b;
+            padding-bottom: 10px;
+        }
+        
+        /* Biographie */
+        .biography {
+            padding: 40px;
+            background: white;
+            border-bottom: 1px solid #e0d9c8;
+            margin-top: 0; /* Ajouté pour éviter un espace supplémentaire */
+            padding-bottom: 10px; /* Réduit l'espace sous la biographie */
+        }
+        
+        /* Œuvres */
+        .artworks {
+            padding: 40px;
+            background: #f8f5ec;
+        }
+        
+        .artwork {
+            margin-bottom: 60px;
+            page-break-inside: avoid;
+            background: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .artwork-image {
+            width: 100%;
+            height: 400px;
+            background-color: #f0ede3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border: 1px solid #e0d9c8;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .artwork-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .artwork-details {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e0d9c8; /* Bordure claire pour séparer la photo du texte */
+            margin-top: 5px;
+            padding-top: 5px;
+        }
+        
+        .artwork-info {
+            width: 65%;
+        }
+        
+        .artwork-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            color: #4a7c59;
+        }
+        
+        .artwork-technique {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .artwork-description {
+            margin-top: 10px;
+            line-height: 1.7;
+        }
+        
+        .artwork-catalog-info {
+            width: 30%;
+            border-left: 1px solid #e0d9c8;
+            padding-left: 15px;
+            font-size: 0.9rem;
+        }
+        
+        /* Grille des tableaux */
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 1000px;   /* Limite la largeur totale de la grille */
+            margin: 5px auto;  /* Centre la grille horizontalement */
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .artwork-grid-item {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        
+        .artwork-grid-image {
+            width: 100%;
+            height: 250px;
+            background-color: #f0ede3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0px;
+            border: 0px solid #e0d9c8;
+            position: relative;
+            cursor: zoom-in;
+            transition: box-shadow 0.2s;
+        }
+        
+        .artwork-grid-image img {
+            transition: transform 0.3s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+            z-index: 1;
+        }
+        
+        .artwork-grid-image:hover img {
+            transform: scale(2.2);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+        
+        .artwork-grid-image:hover {
+            z-index: 20;
+        }
+        
+        .artwork-grid-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #4a7c59;
+        }
+        
+        .artwork-grid-technique {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+            display: inline-block;    /* Ajouté : réduit la largeur au contenu */
+            max-width: 70%;           /* Ajouté : limite la largeur */
+            white-space: normal;      /* Permet le retour à la ligne si besoin */
+            margin: 0 auto;           /* Centre le texte si besoin */
+        }
+        
+        /* Thème jardin */
+        .garden-theme {
+            padding: 40px 40px 10px 40px; /* Réduit le padding bas de 40px à 10px */
+            background: linear-gradient(to bottom, #4a7c59, #629f75);
+            color: white;
+            text-align: center;
+        }
+        
+        .garden-theme .section-title {
+            color: white;
+            border-bottom: 2px solid #c19a6b;
+        }
+        
+        .theme-content {
+            max-width: 800px;
+            margin: 0 auto 0 auto; /* Supprime la marge basse */
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Citation */
+        .quote {
+            font-style: italic;
+            text-align: center;
+            padding: 0px;
+            margin: 10px 0 30px 0;
+            background: #f8f5ec;
+            border-left: 5px solid #4a7c59;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        /* Pied de page */
+        .footer {
+            padding: 40px;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Numérotation */
+        .catalog-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(74, 124, 89, 0.9);
+            color: white;
+            padding: 5px 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 3px;
+        }
+        
+        /* Signature */
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-style: italic;
+            padding-right: 20px;
+            color: #4a7c59;
+        }
+        
+        /* Instructions */
+        .instructions {
+            background: #f8f5ec;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .instructions ul {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .catalogue {
+                box-shadow: none;
+                border: none;
+            }
+            
+            .instructions {
+                display: none;
+            }
+            .page-break {
+            page-break-before: always;
+            break-before: page;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .artwork-details {
+                flex-direction: column;
+            }
+            
+            .artwork-info, .artwork-catalog-info {
+                width: 100%;
+            }
+            
+            .artwork-catalog-info {
+                border-left: none;
+                border-top: 1px solid #e0d9c8;
+                padding-left: 0;
+                padding-top: 15px;
+                margin-top: 15px;
+            }
+            
+            .exhibition-title {
+                font-size: 2.5rem;
+            }
+            
+            .artwork-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .atelier-image-zoom {
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            margin: 0 auto 18px auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+            background: #f0ede3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .atelier-image-zoom img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+            cursor: zoom-in;
+            display: block;
+        }
+        .atelier-image-zoom img:hover {
+            transform: scale(2.1);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="catalogue">
+        <div class="header">
+            <h1 class="exhibition-title">C'est un jardin extraordinaire</h1>
+            <h2 class="artist-name">DENIS PLAINCHAMP</h2>
+            <!-- <p class="exhibition-details">Galerie de la Flore, Paris | 15 octobre - 30 novembre 2023</p> -->
+        </div>
+        
+        <div class="introduction">
+            <h2 class="section-title">Avant-propos</h2>
+            <p>Cette exposition présente une série d'œuvres inédites qui témoignent de l'attachement profond de Denis Plainchamp à son jardin breton. Lieu de ressourcement et source intarissable d'inspiration, ce jardin devient sous le pinceau de l'artiste un véritable monde à part, un "jardin extraordinaire" où se mêlent réalité et imaginaire.</p>
+            <p>Chaque toile invite le spectateur à une promenade méditative à travers les massifs floraux, les jeux de lumière filtrant à travers le feuillage, et les perspectives changeantes au gré des saisons. L'expérience de décorateur d'opéra de l'artiste se ressent dans la dimension scénographique de ses compositions, où chaque plante, chaque fleur devient personnage à part entière.</p>
+            <!-- <p class="signature">Jean Martin,<br>Critique d'art</p> -->
+        </div>
+        
+        <div class="garden-theme">
+            <h2 class="section-title">Le Jardin Breton : Un Univers Personnel</h2>
+            <div class="theme-content">
+                <p>Niché au cœur de la Bretagne, le jardin de Denis Plainchamp est bien plus qu'un simple écrin de verdure. C'est un laboratoire à ciel ouvert où l'artiste expérimente avec les couleurs, les formes et les lumières. Au fil des saisons, il capture l'essence changeante de ce havre de paix, transformant l'ordinaire en extraordinaire.</p>
+                <p>Des premières floraisons printanières aux teintes automnales flamboyantes, chaque moment devient prétexte à une nouvelle exploration picturale. Ce jardin est pour l'artiste une source inépuisable d'inspiration, un dialogue permanent entre nature et création.</p>
+            </div>
+        </div>
+        
+        <div class="biography">
+            <h2 class="section-title">Parcours Artistique</h2>
+            <p>Né à Paris en 1950, Denis Plainchamp est formé à l'École nationale supérieure des arts appliqués et des métiers d'art. Il débute sa carrière comme décorateur pour l'Opéra-Comique, ainsi que pour les opéras de Nantes, Bordeaux et Vérone.</p>
+            <p>Cette expérience théâtrale marquera durablement son approche picturale, notamment dans le traitement de la lumière et la construction de l'espace. Après plusieurs années dans le monde de l'opéra, il fonde sa propre société de design à Paris, tout en développant parallèlement sa pratique picturale.</p>
+            <p>Bien que ses voyages à New York et en Italie aient enrichi sa palette et sa vision artistique, c'est dans son jardin breton qu'il puise aujourd'hui l'essentiel de son inspiration, transformant ce lieu intime en un univers pictural d'une richesse infinie.</p>
+        </div>
+        
+        <div class="quote">
+            "Mon jardin est mon atelier à ciel ouvert, un laboratoire où s'expérimentent sans cesse de nouveaux dialogues entre lumière, couleur et forme. Chaque jour m'y réserve une nouvelle surprise, une nouvelle inspiration."
+        </div>
+        <div class="page-break"></div>
+        <div class="artworks">
+             <h2 class="section-title">Atelier</h2> 
+            
+            <div class="artwork">
+                    
+                <div class="artwork-details">  
+                    <div class="artwork-info">
+                    <!-- <h3 class="artwork-title" border="10px">L’atelier</h3> -->
+                     <!--    <p class="artwork-technique">Huile sur toile, 100 × 80 cm, 2023</p>-->
+                        <table style="width:100%; margin-top:2px; margin-bottom:10px; border-collapse:separate; border-spacing:0; background:#f8f5ec; border:1px solid #e0d9c8; border-radius:6px;">
+                          <tr>
+                            <td style="padding:22px 28px; font-size:1.08rem; line-height:1.7; color:#333; word-break:break-word;">
+                              Depuis l’atelier, une large baie vitrée s’ouvre sur le jardin, offrant à l’artiste une vue privilégiée sur la nature changeante au fil des saisons. Cet espace de création, baigné de lumière naturelle, devient le point de départ de chaque toile : les couleurs, les formes et les ambiances du jardin s’invitent dans l’atelier, nourrissant l’inspiration et guidant le geste du peintre. L’atelier et le jardin dialoguent ainsi en permanence, faisant de chaque œuvre le reflet d’une intimité partagée avec la nature.
+                            </td>
+                          </tr>
+                           <tr>
+                            <td style="padding:22px 28px; font-size:1.08rem; line-height:1.7; color:#333; word-break:break-word;">
+                                   <img src="IMG-20250901-WA0021.jpg" width="100%">
+                                   </td>
+                          </tr>
+                        </table>
+                    </div> 
+ <!--                    <div class="artwork-catalog-info">
+                        <p><strong>Référence:</strong> DP2023-LH</p>
+                        <p><strong>Prix:</strong> Sur demande</p>
+                        <p><strong>Signature:</strong> Bas droite</p>
+                        <p><strong>Encadrement:</strong> Bois naturel</p>
+                    </div> -->
+                </div>
+            </div>
+             <div class="page-break"></div>
+            <h3 class="section-title" style="text-align: center; margin: 50px 0 30px;">Quelques Œuvres</h3>
+            
+            <div class="artwork-grid">
+                <!-- Tableau 1 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Bretagne_01_81L-65H.png" width="81%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Dinan</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 65 cm</p>
+                </div>
+                
+                <!-- Tableau 2 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image"><!-- height="242px" width="400px" -->
+                        <img src="Selection\Bretagne_02.JPG"  width="82%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, la Rance</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 120 × 60 cm</p>
+                </div>
+                
+                <!-- Tableau 3 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                          <img src="Selection\Bretagne_03.JPG"  width="87%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, enfance</h4>
+                    <p class="artwork-grid-technique">Huile sur toile</p>
+                </div>
+                
+                <!-- Tableau 4 -->
+                                 <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                          <img src="Selection\Bretagne_01.JPG"  width="47%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, jeunesse</h4>
+                    <p class="artwork-grid-technique">Huile sur toile</p>
+                </div>
+                <!-- Tableau 5 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Aquarel_01_L24-H31.jpg"  width="46%">
+                    </div>
+                    <h4 class="artwork-grid-title">Italie, Jardin Orvieto</h4>
+                    <p class="artwork-grid-technique">Aquarelle, 25 × 130 cm</p>
+                </div>
+                
+                <!-- Tableau 6 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Aquarel_02_L24-H31.jpg"  width="44%">
+                    </div>
+                    <h4 class="artwork-grid-title">Italie, Olivier Orvieto</h4>
+                    <p class="artwork-grid-technique">Aquarelle, 25 × 130 cm</p>
+                </div>
+                
+                <!-- Tableau 7 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Aquarel_03_L24-H31.jpg"  width="47%">
+                    </div>
+                    <h4 class="artwork-grid-title">Italie, Jardin Orvieto</h4>
+                    <p class="artwork-grid-technique">Aquarelle, 25 × 130 cm</p>
+                </div>
+                
+                <!-- Tableau 8 -->            
+
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\IMG_0909.JPG"  width="77%">
+                    </div>
+                    <h4 class="artwork-grid-title">Miami, Ocean Drive</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 120 cm</p>
+                </div>
+                
+                <!-- Tableau 9 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\Miami_01_60L-81H.jpg"  width="45.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">Miami, Ocean Drive</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 60 × 80 cm</p>
+                </div>
+                
+                <!-- Tableau 10 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\Miami_02_27L-35H.jpg"  width="48%">
+                    </div>
+                    <h4 class="artwork-grid-title">Miami</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 27 × 35 cm</p>
+                </div>
+                
+                <!-- Tableau 11 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\IMG_0909.JPG"  width="76%">
+                    </div>
+                    <h4 class="artwork-grid-title">Miami</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 50 × 60 cm</p>
+                </div>
+                
+                <!-- Tableau 12 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_01_46L-38H.jpg"  width="75.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 46 × 38 cm</p>
+                </div>
+                   <!-- Tableau 13 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_02_38L-55H.jpg"  width="42%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 33 × 55 cm</p>
+                </div>   
+                
+                    <!-- Tableau 14 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_03_46L-55H.jpg"  width="49.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 46 × 55 cm</p>
+                </div>   
+                                    <!-- Tableau 15 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_04_37L-44H.JPG"  width="46.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 38 × 44 cm</p>
+                </div>   
+                 <!-- Tableau 16 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_05_38L-55H.jpg"  width="43%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 38 × 55 cm</p>
+                </div>   
+                <!-- Tableau 17 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_06_65-67H.jpg"  width="52%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 67 cm</p>
+                </div>   
+                            <!-- Tableau 18 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_07_33L-41H.JPG"  width="46.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 33 × 40 cm</p>
+                </div>
+                              <!-- Tableau 19 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\NY_08_65L-55H.jpg"  width="78%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div> 
+                          
+                <!-- Tableau 20 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\IMG_0516.jpg"  width="46.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div>                                
+                <!-- Tableau 21 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\IMG_0901.JPG"  width="46.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div>                                
+                <!-- Tableau 22 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\IMG_0902.JPG"  width="40%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div>                               
+                 <!-- Tableau 23 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\IMG_0903.JPG"  width="41%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div>                                
+                <!-- Tableau 24 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\IMG_0904.JPG"  width="41.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div>                
+                 <!-- Tableau 25 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="New York\IMG_0905.JPG"  width="42%">
+                    </div>
+                    <h4 class="artwork-grid-title">New York</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 65 × 55 cm</p>
+                </div>                 
+                <!-- Tableau 26 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\Maroc_01_22L-14H.jpg"  width="100%">
+                    </div>
+                    <h4 class="artwork-grid-title">Maroc</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 22 × 14 cm</p>
+                </div>
+                <!-- Tableau 27 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\Maroc_02_22L-14H.jpg"  width="100%">
+                    </div>
+                    <h4 class="artwork-grid-title">Maroc</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 22 × 14 cm</p>
+                </div>
+                
+                <!-- Tableau 28 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\Maroc_03_22L-14H.jpg"  width="82%">
+                    </div>
+                    <h4 class="artwork-grid-title">Maroc</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 22 × 14 cm</p>
+                </div>
+                <!-- Tableau 29 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\IMG_0918.JPG"  width="39.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">Maroc, Fès </h4>
+                    <p class="artwork-grid-technique">Huile sur toile</p>
+                </div>             
+                <!-- Tableau 30 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                         <img src="Selection\Venise_01_81L-116H.jpg"  width="42%">
+                    </div>
+                    <h4 class="artwork-grid-title">Venise</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 22 × 14 cm</p>
+                </div>
+                <!-- Tableau 31 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Venise_02_81L-116H.jpg"  width="43%">
+                    </div>
+                    <h4 class="artwork-grid-title">Venise</h4>
+                    <p class="artwork-grid-technique">Huile sur bois, 22 × 14 cm</p>
+                </div>
+                
+                <!-- Tableau 32 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Inde_60L-92H.JPG"  width="40.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">Inde, Jaipur</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 90 × 90 cm</p>
+                </div>
+                
+                <!-- Tableau 33 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Inde_91L-65H.jpg"  width="89%">
+                    </div>
+                    <h4 class="artwork-grid-title">Inde, Jaipur, Fort d’Amber</h4>
+                    <p class="artwork-grid-technique">Acrylique sur toile, 90 × 65 cm</p>
+                </div>
+                                <!-- Tableau 34 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\IMG_0927.JPG"  width="97%">
+                    </div>
+                    <h4 class="artwork-grid-title">Inde, Jaipur, Fort d’Amber</h4>
+                    <p class="artwork-grid-technique">Acrylique sur toile, 60 × 90 cm</p>
+                </div>
+                                <!-- Tableau 35 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\Inde_92L-65H.jpg"  width="87%">
+                    </div>
+                    <h4 class="artwork-grid-title">Inde, Jaipur, Jal Mahal</h4>
+                    <p class="artwork-grid-technique">Acrylique sur toile, 90 × 65 cm</p>
+                     </div>
+                <!-- Tableau 36 -->
+               <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\IMG_0936.JPG"  width="46.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne</h4>
+                    <p class="artwork-grid-technique">Bois flotté</p>
+                </div>  
+                                    <!-- Tableau 47 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\IMG_0939.JPG"  width="46.5%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne</h4>
+                    <p class="artwork-grid-technique">Bois flotté</p>
+                </div>
+                                     <!-- Tableau 48 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\IMG_0938.JPG"  width="45%">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne</h4>
+                    <p class="artwork-grid-technique">Bois flotté</p>
+                </div>
+                                     <!-- Tableau 49 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Selection\IMG_0994.JPG" width="46.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne</h4>
+                    <p class="artwork-grid-technique">Bois flotté</p>
+                </div>
+                 <!-- Tableau 50 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_08_81L-116H.JPG" width="43.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm</p>
+                </div>
+                            <!-- Tableau 51 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_04_116L-81H.JPG" width="75%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 115 × 80 cm</p>
+                </div>
+                            <!-- Tableau 52 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_09_116L-81H.JPG" width="75%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm</p>
+                </div>
+                            <!-- Tableau 53 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_01_81L-116H.JPG" width="42.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm</p>
+                </div>
+                            <!-- Tableau 54 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_06_81L-116H.JPG" width="45%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                            <!-- Tableau 55 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_02_81L-116H.JPG" width="44%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                            <!-- Tableau 56 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_05_81L-116H.JPG" width="48%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                                            <!-- Tableau 57 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_03_81L-116H.JPG" width="46.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                            <!-- Tableau 58 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_06_81L-116H.JPG" width="45.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                        <!-- Tableau 59 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\IMG_0991.JPG" width="49%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                                        <!-- Tableau 60 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\IMG_20250901_172750.JPG" width="46.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                                                        <!-- Tableau 61 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\IMG_20250901_173138.JPG" width="48.5%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                                                        <!-- Tableau 62 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\IMG_20250901_173444.JPG" width="49%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                                                        <!-- Tableau 63 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\IMG_20250901_173634.JPG" width="45%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 80 × 115 cm<</p>
+                </div>
+                                                                      <!-- Tableau 64 -->
+                <div class="artwork-grid-item">
+                    <div class="artwork-grid-image">
+                        <img src="Jardin Lancieux\Jardin_11_50L-70H.JPG" width="42%" alt="Sculptural arrangement of intertwined driftwood branches standing upright on a light-colored base, set against a warm red wall. The natural wood textures and organic forms create a sense of calm and connection to nature. The environment is softly lit, with gentle shadows cast on the wall, evoking a tranquil and contemplative mood.">
+                    </div>
+                    <h4 class="artwork-grid-title">Bretagne, Jardin</h4>
+                    <p class="artwork-grid-technique">Huile sur toile, 50 × 70 cm<</p>
+                </div>
+                
+                </div>
+
+
+        </div>
+        
+        <div class="footer">
+            <h2>Informations</h2>
+          <!--   <p>Exposition ouverte du mardi au samedi, de 11h à 19h</p>
+            <p>Vernissage le 14 octobre 2023 à partir de 18h</p> -->
+            <div class="contact-info">
+               <!--  <p>Galerie de la Flore | 24 Rue des Jardins, 75004 Paris </p>-->
+                <p>Tel: +33 6 40 21 22 28 <!-- | www.galeriedelaflore.fr --></p>
+                <p>Contact: dplainchamp@free.fr | www.denisplainchamp.com</p>
+            </div>
+        </div>
+    </div>
+    
+<!--     <div class="instructions">
+        <h3>Comment utiliser ce modèle avec vos tableaux</h3>
+        <ul>
+            <li>Ce modèle comprend 19 emplacements pour vos tableaux</li>
+            <li>Pour chaque tableau, remplacez le texte "Tableau X" par le titre de votre œuvre</li>
+            <li>Modifiez les dimensions et techniques selon vos œuvres réelles</li>
+            <li>Remplacez les cadres gris par les photos de vos tableaux</li>
+            <li>Personnalisez les descriptions pour refléter vos œuvres</li>
+            <li>Adaptez les informations de contact et de galerie selon vos besoins</li>
+        </ul>
+        <p><strong>Pour utiliser dans Word:</strong> Copiez ce code, enregistrez-le en fichier HTML et ouvrez-le avec Word.</p>
+    </div> -->
+</body>
+</html>
